@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SalusApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SalusApplication.class, args);
+        SpringApplication.run(SalusApplication.class, args);
 	}
 
 }
