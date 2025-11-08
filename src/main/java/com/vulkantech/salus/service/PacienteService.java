@@ -16,7 +16,7 @@ public class PacienteService {
         // Evita CPFs duplicados
         for (Paciente p : pacientes) {
             if (p.getCpf().equals(paciente.getCpf())) {
-                throw new RuntimeException("CPF já cadastrado!")
+                throw new RuntimeException("CPF já cadastrado!");
             }
         }
         pacientes.add(paciente);
@@ -33,7 +33,7 @@ public class PacienteService {
                 return p;
             }
         }
-        throw new RuntimeException("Paciente não encontrado!")
+        throw new RuntimeException("Paciente não encontrado!");
     }
     // UPDATE
     public void updatePaciente(String cpf, Paciente pacienteAtualizado) {

@@ -3,7 +3,6 @@ package com.vulkantech.salus.model;
 import com.vulkantech.salus.repository.PacienteRepository;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 
 @Entity
@@ -22,7 +21,6 @@ public class Paciente {
     }
 
     public Paciente() {
-
     }
 
     public String getNome() {
