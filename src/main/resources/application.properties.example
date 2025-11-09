@@ -2,8 +2,7 @@ spring.application.name=salus
 server.port=3000
 spring.datasource.url=jdbc:postgresql://localhost:5432/ubs_agendamento
 spring.datasource.username=postgres
-    spring.datasource.password=COLOQUE AQUI SUA SENHA DO POSTGRE
+spring.datasource.password=COLOQUE AQUI SUA SENHA DO POSTGRE
 
 spring.jpa.hibernate.ddl-auto=update
-# 'update': Atualiza o schema (cria/altera tabelas) automaticamente ao iniciar.
 spring.jpa.show-sql=true
