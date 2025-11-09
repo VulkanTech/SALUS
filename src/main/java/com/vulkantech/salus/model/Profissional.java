@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "profissional")
+@Table(name = "tb_profissionais")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Profissional {
     @Id
     private String cpf;
