@@ -1,6 +1,5 @@
 package com.vulkantech.salus.service;
 
-
 import com.vulkantech.salus.model.Paciente;
 import org.springframework.stereotype.Service;
 

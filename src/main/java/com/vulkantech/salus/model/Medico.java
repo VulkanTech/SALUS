@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "medico")
+@Table(name = "tb_medicos")
 public class Medico extends Profissional {
-    @Id
     private String crm;
     private String especialidade;
 
