@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "medico")
-public class Medico extends Paciente {
+public class Medico extends Profissional {
     @Id
     private String crm;
     private String especialidade;
