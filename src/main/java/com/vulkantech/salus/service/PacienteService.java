@@ -1,17 +1,25 @@
 package com.vulkantech.salus.service;
 
 import com.vulkantech.salus.model.Paciente;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Service
 public class PacienteService {
+
     private List<Paciente> pacientes = new ArrayList<>();
 
     // CREATE
     public void addPaciente(Paciente paciente) {
+
+        if (paciente.getCpf() == null || paciente.getCpf().isBlank()) {
+            throw new RuntimeException("CPF não pode ser nulo ou vazio!");
+        }
+
         // Evita CPFs duplicados
         for (Paciente p : pacientes) {
             if (p.getCpf().equals(paciente.getCpf())) {
@@ -22,10 +30,6 @@ public class PacienteService {
     }
 
     // READ
-    public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-
     public Paciente getPaciente(String cpf) {
         for (Paciente p : pacientes) {
             if (p.getCpf().equals(cpf)) {
