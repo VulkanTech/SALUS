@@ -40,7 +40,7 @@ public class PacienteController {
     }
 
     //DELETE
-    @DeleteMapping("{cpf}")
+    @DeleteMapping("/{cpf}")
     public void deletePaciente(@PathVariable String cpf){
         pacienteService.deletePaciente(cpf);
     }
