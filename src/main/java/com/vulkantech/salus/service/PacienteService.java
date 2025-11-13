@@ -1,58 +1,52 @@
 package com.vulkantech.salus.service;
 
 import com.vulkantech.salus.model.Paciente;
-import lombok.Getter;
+import com.vulkantech.salus.repository.PacienteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Getter
 @Service
+@RequiredArgsConstructor
 public class PacienteService {
 
-    private List<Paciente> pacientes = new ArrayList<>();
+    private final PacienteRepository pacienteRepository; // injeção via Lombok
 
     // CREATE
-    public void addPaciente(Paciente paciente) {
-
-        if (paciente.getCpf() == null || paciente.getCpf().isBlank()) {
-            throw new RuntimeException("CPF não pode ser nulo ou vazio!");
-        }
-
-        // Evita CPFs duplicados
-        for (Paciente p : pacientes) {
-            if (p.getCpf().equals(paciente.getCpf())) {
-                throw new RuntimeException("CPF já cadastrado!");
-            }
-        }
-        pacientes.add(paciente);
+    public Paciente addPaciente(Paciente paciente) {
+        return pacienteRepository.save(paciente);
     }
 
-    // READ
+    // READ - listar todos
+    public List<Paciente> getPacientes() {
+        return pacienteRepository.findAll();
+    }
+
+    // READ - buscar por CPF
     public Paciente getPaciente(String cpf) {
-        for (Paciente p : pacientes) {
-            if (p.getCpf().equals(cpf)) {
-                return p;
-            }
-        }
-        throw new RuntimeException("Paciente não encontrado!");
+        return pacienteRepository.findById(cpf).orElse(null);
     }
+
     // UPDATE
-    public void updatePaciente(String cpf, Paciente pacienteAtualizado) {
-        for (int i = 0; i< pacientes.size(); i++) {
-            Paciente p = pacientes.get(i);
-            if (p.getCpf().equals(cpf)) {
-                pacientes.set(i, pacienteAtualizado);
-                return;
-            }
-        }
-        throw new RuntimeException("Paciente não encontrado para atualização!");
+    public Paciente updatePaciente(String cpf, Paciente pacienteAtualizado) {
+        Optional<Paciente> pacienteOpt = pacienteRepository.findById(cpf);
+        if (pacienteOpt.isEmpty()) return null;
+
+        Paciente paciente = pacienteOpt.get();
+        paciente.setNome(pacienteAtualizado.getNome());
+        paciente.setIdade(pacienteAtualizado.getIdade());
+        paciente.setTelefone(pacienteAtualizado.getTelefone());
+        paciente.setEmail(pacienteAtualizado.getEmail());
+
+        return pacienteRepository.save(paciente);
     }
 
     // DELETE
-    public void deletePaciente(String cpf) {
-        Paciente paciente =  getPaciente(cpf);
-        pacientes.remove(paciente);
+    public boolean deletePaciente(String cpf) {
+        if (!pacienteRepository.existsById(cpf)) return false;
+        pacienteRepository.deleteById(cpf);
+        return true;
     }
 }
