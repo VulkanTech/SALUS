@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Paciente {
+public class Paciente extends Pessoa {
 
     @Id
     private String cpf; // CPF como ID único

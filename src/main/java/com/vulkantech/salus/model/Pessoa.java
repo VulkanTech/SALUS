@@ -1,12 +1,11 @@
 package com.vulkantech.salus.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "tb_profissionais")
+@Table(name = "tb_pessoas")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Profissional {
+public class Pessoa {
     @Id
     private String cpf;
     private String nome;
