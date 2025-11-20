@@ -35,6 +35,10 @@ public class MedicoService {
         if (medicoOpt.isEmpty()) return null;
 
         Medico medico = medicoOpt.get();
+        medico.setNome(medicoAtualizado.getNome());
+        medico.setEmail(medicoAtualizado.getEmail());
+        medico.setTelefone(medicoAtualizado.getTelefone());
+        medico.setIdade(medicoAtualizado.getIdade());
         medico.setCrm(medicoAtualizado.getCrm());
         medico.setEspecialidade(medicoAtualizado.getEspecialidade());
 

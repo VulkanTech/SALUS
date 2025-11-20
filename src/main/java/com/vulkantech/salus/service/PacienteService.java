@@ -38,6 +38,7 @@ public class PacienteService {
         paciente.setNome(pacienteAtualizado.getNome());
         paciente.setEmail(pacienteAtualizado.getEmail());
         paciente.setTelefone(pacienteAtualizado.getTelefone());
+        paciente.setIdade(pacienteAtualizado.getIdade());
         paciente.setDoenca(pacienteAtualizado.getDoenca());
 
         return pacienteRepository.save(paciente);
