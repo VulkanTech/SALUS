@@ -1,8 +1,12 @@
 package com.vulkantech.salus.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_medicos")
 public class Medico extends Pessoa {
