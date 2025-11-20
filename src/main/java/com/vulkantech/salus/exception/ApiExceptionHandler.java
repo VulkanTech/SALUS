@@ -34,21 +34,21 @@ public class ApiExceptionHandler {
 
     //404-not found
     @ExceptionHandler(ConsultaNaoEncontradaException.class)
-    public ResponseEntity<ErrorResponse> handleConsultaNaoEncontrada(Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleConsultaNaoEncontrada(ConsultaNaoEncontradaException ex, HttpServletRequest request) {
         ErrorResponse erro = criarErro(HttpStatus.NOT_FOUND, ex.getMessage(), request);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
 
     //400-bad request
     @ExceptionHandler(DadosInvalidosException.class)
-    public ResponseEntity<ErrorResponse> handleDadosInvalidos(Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleDadosInvalidos(DadosInvalidosException ex, HttpServletRequest request) {
         ErrorResponse erro = criarErro(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
     //404-not found ->generico
     @ExceptionHandler(RecursoNaoEncontradoException.class)
-    public ResponseEntity<ErrorResponse> handleRecursoNaoEncontrado(Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleRecursoNaoEncontrado(RecursoNaoEncontradoException ex, HttpServletRequest request) {
         ErrorResponse erro = criarErro(HttpStatus.NOT_FOUND, ex.getMessage(), request);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
     }
