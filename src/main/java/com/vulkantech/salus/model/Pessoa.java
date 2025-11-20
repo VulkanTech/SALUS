@@ -1,11 +1,15 @@
 package com.vulkantech.salus.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@Table(name = "tb_pessoas")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@MappedSuperclass
+
+public abstract class Pessoa {
     @Id
     private String cpf;
     private String nome;

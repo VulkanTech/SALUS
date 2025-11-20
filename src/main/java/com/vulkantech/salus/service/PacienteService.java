@@ -35,10 +35,7 @@ public class PacienteService {
         if (pacienteOpt.isEmpty()) return null;
 
         Paciente paciente = pacienteOpt.get();
-        paciente.setNome(pacienteAtualizado.getNome());
-        paciente.setIdade(pacienteAtualizado.getIdade());
-        paciente.setTelefone(pacienteAtualizado.getTelefone());
-        paciente.setEmail(pacienteAtualizado.getEmail());
+        paciente.setDoenca(pacienteAtualizado.getDoenca());
 
         return pacienteRepository.save(paciente);
     }
