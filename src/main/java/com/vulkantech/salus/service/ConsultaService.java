@@ -33,6 +33,11 @@ public class ConsultaService {
     }
 
     // READ
+    //busca por ID (se ele não achar mostra erro 404)
+    public Consulta buscarPorId(Long id) {
+        return consultaRepository.findById(id)
+                .orElseThrow(() -> new ConsultaNaoEncontradaException("Consulta não encontrada com o ID: " + id));
+    }
     public List<Consulta> getConsultas() {
         return consultaRepository.findAll();
     }
@@ -48,7 +53,8 @@ public class ConsultaService {
 
 
     // DELETE
-    public void cancelarConsulta(Consulta consulta) {
+    public void cancelarConsulta(Long idConsulta) {
+        Consulta consulta = buscarPorId(idConsulta);
         consulta.cancelar();
         consultaRepository.save(consulta);
     }
