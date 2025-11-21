@@ -4,7 +4,7 @@ import com.vulkantech.salus.model.Medico;
 import com.vulkantech.salus.model.Paciente;
 import org.springframework.stereotype.Service;
 import com.vulkantech.salus.exception.ConsultaNaoEncontradaException;
-import com.vulkantech.salus.exception.ConflitoDeHorarioException;
+import com.vulkantech.salus.exception.ConflitodeHorarioException;
 
 import java.time.LocalDateTime;
 import java.util.List;
