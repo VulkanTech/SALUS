@@ -3,9 +3,13 @@ package com.vulkantech.salus.dto;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 public class AgendamentoRequestDTO {
     @NotNull(message = "O ID do médico é obrigatório.")
     private long medicoId;
