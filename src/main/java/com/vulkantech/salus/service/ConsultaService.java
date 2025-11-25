@@ -6,6 +6,7 @@ import com.vulkantech.salus.repository.ConsultaRepository;
 import org.springframework.stereotype.Service;
 import com.vulkantech.salus.exception.ConsultaNaoEncontradaException;
 import com.vulkantech.salus.exception.ConflitodeHorarioException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,12 +20,11 @@ public class ConsultaService {
     }
 
     // CREATE
-    public Consulta addConsulta(Medico medico, Paciente paciente, LocalDateTime dataHora ) {
+    @Transactional
+    public Consulta addConsulta(Medico medico, Paciente paciente, LocalDateTime dataHora) {
         if (consultaRepository.existsByMedico_CrmAndDataHora(medico.getCrm(), dataHora)) {
             throw new ConflitodeHorarioException("Esse médico já tem consulta neste horário.");
-        }
-
-        else if (consultaRepository.existsByPaciente_CpfAndDataHora(paciente.getCpf(), dataHora)) {
+        } else if (consultaRepository.existsByPaciente_CpfAndDataHora(paciente.getCpf(), dataHora)) {
             throw new ConflitodeHorarioException("Esse paciente já tem consulta neste horário.");
         }
 
@@ -32,16 +32,23 @@ public class ConsultaService {
         return consultaRepository.save(novaConsulta);
     }
 
-    // READ
+    // READ - busca individual
     //busca por ID (se ele não achar mostra erro 404)
+    @Transactional(readOnly = true)
     public Consulta buscarPorId(Long id) {
         return consultaRepository.findById(id)
                 .orElseThrow(() -> new ConsultaNaoEncontradaException("Consulta não encontrada com o ID: " + id));
     }
+
+    //READ - retorna todos os itens
+    @Transactional(readOnly = true)
     public List<Consulta> getConsultas() {
         return consultaRepository.findAll();
     }
 
+
+    //Retorna todas consultas do médico
+    @Transactional(readOnly = true)
     public List<Consulta> listarConsultasDoMedico(Medico medico) {
         return consultaRepository.findAll()
                 .stream()
@@ -53,9 +60,14 @@ public class ConsultaService {
 
 
     // DELETE
+    @Transactional //garante atomicidade - tudo ou nada
     public void cancelarConsulta(Long idConsulta) {
         Consulta consulta = buscarPorId(idConsulta);
-        consulta.cancelar();
-        consultaRepository.save(consulta);
+        if (consulta == null) {
+            throw new ConsultaNaoEncontradaException("Consulta não encontrada!");
+        } else {
+            consulta.cancelar();
+            consultaRepository.save(consulta);
+        }
     }
 }
