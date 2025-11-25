@@ -21,11 +21,24 @@ public class ConsultaController {
     private ConsultaService consultaService;
 
     //POST - Agendamento,@valid e conflito de horario
-    @PostMapping
+    @PostMapping("/{id}")
     public ResponseEntity<Consulta> agendar(@RequestBody @Valid AgendamentoRequestDTO dados) {
         return null;
 
     }
+    //Valid- faz a validação dos campos
+    //RequestBody - data binding- recebe o json da requisição e transforma no objeto java
 
+    //PUT
+    @PutMapping("/{id}")
+    public ResponseEntity<Consulta> editar(@RequestBody @Valid AgendamentoRequestDTO dados) {
+        return null;
+    }
+
+    //DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Consulta> deletar(@RequestBody @Valid AgendamentoRequestDTO dados) {
+        return null;
+    }
 
 }
