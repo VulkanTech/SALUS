@@ -1,8 +1,16 @@
 spring.application.name=salus
-server.port=3000
-spring.datasource.url=jdbc:postgresql://localhost:5432/ubs_agendamento
-spring.datasource.username=postgres
-    spring.datasource.password=COLOQUE AQUI SUA SENHA DO POSTGRE
+server.port=8081
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.enabled=true
 
+
+# Configuracao do Banco de Dados PostgreSQL
+spring.datasource.url=${SPRING_DATASOURCE_URL}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Configuracao do JPA (Hibernate)
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
