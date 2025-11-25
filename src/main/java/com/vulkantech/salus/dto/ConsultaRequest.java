@@ -2,7 +2,6 @@ package com.vulkantech.salus.dto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class AgendamentoRequestDTO {
+public class ConsultaRequest {
     @NotNull(message = "O ID do médico é obrigatório.")
     private long medicoId;
 
