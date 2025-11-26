@@ -18,4 +18,4 @@ Thumbs.db
 
 # Arquivo de segredos
 # NUNCA envie sua senha do banco!
-application.properties
+.env
