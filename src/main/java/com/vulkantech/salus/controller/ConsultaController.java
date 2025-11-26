@@ -2,6 +2,7 @@ package com.vulkantech.salus.controller;
 
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Locked;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
 
-    //POST - Agendamento,@valid e conflito de horario
+    //CREATE - Agendamento,@valid e conflito de horario
     @PostMapping("/{id}")
     public ResponseEntity<Consulta> agendar(@RequestBody @Valid AgendamentoRequestDTO dados) {
         return null;
@@ -31,7 +32,13 @@ public class ConsultaController {
     //Valid- faz a validação dos campos
     //RequestBody - data binding- recebe o json da requisição e transforma no objeto java
 
-    //PUT
+    //READ
+    @GetMapping
+    public ResponseEntity<Consulta> consultar(@RequestParam @Valid Long idConsulta) {
+        return null;
+    }
+
+    //UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<Consulta> editar(@RequestBody @Valid AgendamentoRequestDTO dados) {
         return null;
