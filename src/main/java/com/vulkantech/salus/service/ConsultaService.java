@@ -28,7 +28,11 @@ public class ConsultaService {
             throw new ConflitodeHorarioException("Esse paciente já tem consulta neste horário.");
         }
 
-        Consulta novaConsulta = new Consulta(medico, paciente, dataHora);
+        Consulta novaConsulta = Consulta.builder() //builda o construtor
+                .medico(medico)
+                .paciente(paciente)
+                .dataHora(dataHora)
+                .build();
         return consultaRepository.save(novaConsulta);
     }
 

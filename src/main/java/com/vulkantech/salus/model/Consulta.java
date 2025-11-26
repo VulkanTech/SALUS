@@ -1,14 +1,17 @@
 package com.vulkantech.salus.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "tb_consultas")
 public class Consulta {
 
     @Id
@@ -27,15 +30,13 @@ public class Consulta {
 
     private boolean cancelar = false;
 
-    public Consulta() { }
-
-    public Consulta (Medico medico, Paciente paciente, LocalDateTime dataHora){
-        this.medico = medico;
-        this.paciente = paciente;
-        this.dataHora = dataHora;
-    }
-
     public void cancelar() {
+        if (this.cancelar) {
+            throw new IllegalStateException("Consulta já cancelada!");//o estado do objeto(ja cancelado), não permite a operação
+        }
+        if (this.dataHora.isBefore(LocalDateTime.now())) { //se a consulta for antes do horario atual, lança erro
+            throw new IllegalStateException("Não é possivel cancelar consulta passada!");
+        }
         this.cancelar = true;
     }
 
