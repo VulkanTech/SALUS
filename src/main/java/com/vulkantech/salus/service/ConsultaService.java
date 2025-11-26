@@ -57,7 +57,31 @@ public class ConsultaService {
     }
 
     // UPDATE
+    @Transactional
+    public Consulta atualizarConsulta(Long idConsulta, Medico novoMedico, Paciente novoPaciente, LocalDateTime novaDataHora) {
 
+        Consulta consultaExistente = buscarPorId(idConsulta);
+
+        // Verificar conflito de horário para outro médico
+        if (consultaRepository.existsByMedico_CrmAndDataHora(novoMedico.getCrm(), novaDataHora)) {
+            if (!consultaExistente.getId().equals(idConsulta)) {
+                throw new ConflitodeHorarioException("Este médico já possui outra consulta nesse horário.");
+            }
+        }
+
+        // Verificar conflito de horário para outro paciente
+        if (consultaRepository.existsByPaciente_CpfAndDataHora(novoPaciente.getCpf(), novaDataHora)) {
+            if (!consultaExistente.getId().equals(idConsulta)) {
+                throw new ConflitodeHorarioException("Este paciente já possui outra consulta nesse horário.");
+            }
+        }
+
+        consultaExistente.setMedico(novoMedico);
+        consultaExistente.setPaciente(novoPaciente);
+        consultaExistente.setDataHora(novaDataHora);
+
+        return consultaRepository.save(consultaExistente);
+    }
 
     // DELETE
     @Transactional //garante atomicidade - tudo ou nada

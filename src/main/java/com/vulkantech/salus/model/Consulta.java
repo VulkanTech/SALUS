@@ -13,7 +13,7 @@ public class Consulta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "medico_crm", nullable = false)
