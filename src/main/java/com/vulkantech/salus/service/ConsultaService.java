@@ -53,10 +53,10 @@ public class ConsultaService {
 
     //Retorna todas consultas do médico
     @Transactional(readOnly = true)
-    public List<Consulta> listarConsultasDoMedico(Medico medico) {
+    public List<Consulta> listarConsultasDoMedico(String crm) {
         return consultaRepository.findAll()
                 .stream()
-                .filter(c -> c.getMedico().equals(medico))
+                .filter(c -> c.getMedico().getCrm().equals(crm))
                 .toList();
     }
 
@@ -79,7 +79,6 @@ public class ConsultaService {
                 throw new ConflitodeHorarioException("Este paciente já possui outra consulta nesse horário.");
             }
         }
-
         consultaExistente.setMedico(novoMedico);
         consultaExistente.setPaciente(novoPaciente);
         consultaExistente.setDataHora(novaDataHora);
