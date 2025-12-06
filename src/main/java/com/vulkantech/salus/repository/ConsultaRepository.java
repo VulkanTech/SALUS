@@ -15,4 +15,6 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
     List<Consulta> findByMedicoId(Long medicoId);
 
     List<Consulta> findByPacienteId(Long pacienteId);
+
+    List<Consulta> findByDataHoraBetween(LocalDateTime inicio, LocalDateTime fim);
 }
