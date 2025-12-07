@@ -16,18 +16,18 @@ public class RelatorioService {
     private final ConsultaRepository consultaRepository;
 
     // Relatorio Geral
-    public List<RelatorioConsultaDTO> gerarRelatorioConsultas(Long medicoId, Long pacienteId) {
+    public List<RelatorioConsultaDTO> gerarRelatorioConsultas(String medicoCpf, String pacienteCpf) {
 
         List<Consulta> consultas;
 
-        if (medicoId != null && pacienteId != null) {
-            consultas = consultaRepository.findByMedicoIdAndPacienteId(medicoId, pacienteId);
+        if (medicoCpf != null && pacienteCpf != null) {
+            consultas = consultaRepository.findByMedico_CpfAndPaciente_Cpf(medicoCpf, pacienteCpf);
         }
-        else if (medicoId != null) {
-            consultas = consultaRepository.findByMedicoId(medicoId);
+        else if (medicoCpf != null) {
+            consultas = consultaRepository.findByMedico_Cpf(medicoCpf);
         }
-        else if (pacienteId != null) {
-            consultas = consultaRepository.findByPacienteId(pacienteId);
+        else if (pacienteCpf != null) {
+            consultas = consultaRepository.findByPaciente_Cpf(pacienteCpf);
         }
         else {
             consultas = consultaRepository.findAll();
@@ -40,8 +40,8 @@ public class RelatorioService {
 
 
     // Relatorio por Medico
-    public List<RelatorioConsultaDTO> listarPorMedico(Long medicoId) {
-        return consultaRepository.findByMedicoId(medicoId)
+    public List<RelatorioConsultaDTO> listarPorMedico(String medicoCpf) {
+        return consultaRepository.findByMedico_Cpf(medicoCpf)
                 .stream()
                 .map(this::toDTO)
                 .toList();

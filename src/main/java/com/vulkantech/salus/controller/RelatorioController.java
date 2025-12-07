@@ -17,16 +17,16 @@ public class RelatorioController {
 
     @GetMapping("/consultas")
     public ResponseEntity<?> gerarRelatorioConsultas(
-            @RequestParam(required = false) Long medicoId,
-            @RequestParam(required = false) Long pacienteId
+            @RequestParam(required = false) String medicoCpf,
+            @RequestParam(required = false) String pacienteCpf
     ) {
-        return ResponseEntity.ok(relatorioService.gerarRelatorioConsultas(medicoId, pacienteId));
+        return ResponseEntity.ok(relatorioService.gerarRelatorioConsultas(medicoCpf, pacienteCpf));
     }
 
     // Relatório por médico
-    @GetMapping("/consultas/medico/{id}")
-    public ResponseEntity<?> listarPorMedico(@PathVariable Long id) {
-        return ResponseEntity.ok(relatorioService.listarPorMedico(id));
+    @GetMapping("/consultas/medico/{cpf}")
+    public ResponseEntity<?> listarPorMedico(@PathVariable String cpf) {
+        return ResponseEntity.ok(relatorioService.listarPorMedico(cpf));
     }
 
     // Relatório por período

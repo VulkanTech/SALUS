@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
+
 @Entity
 @Table(name = "tb_pacientes")
 public class Paciente extends Pessoa {

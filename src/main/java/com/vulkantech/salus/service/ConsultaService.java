@@ -22,7 +22,7 @@ public class ConsultaService {
     // CREATE
     @Transactional
     public Consulta addConsulta(Medico medico, Paciente paciente, LocalDateTime dataHora) {
-        if (consultaRepository.existsByMedico_CrmAndDataHora(medico.getCrm(), dataHora)) {
+        if (consultaRepository.existsByMedico_CpfAndDataHora(medico.getCpf(), dataHora)) {
             throw new ConflitodeHorarioException("Esse médico já tem consulta neste horário.");
         } else if (consultaRepository.existsByPaciente_CpfAndDataHora(paciente.getCpf(), dataHora)) {
             throw new ConflitodeHorarioException("Esse paciente já tem consulta neste horário.");
@@ -53,10 +53,10 @@ public class ConsultaService {
 
     //Retorna todas consultas do médico
     @Transactional(readOnly = true)
-    public List<Consulta> listarConsultasDoMedico(String crm) {
+    public List<Consulta> listarConsultasDoMedico(String medicoCpf) {
         return consultaRepository.findAll()
                 .stream()
-                .filter(c -> c.getMedico().getCrm().equals(crm))
+                .filter(c -> c.getMedico().getCpf().equals(medicoCpf))
                 .toList();
     }
 
@@ -67,18 +67,24 @@ public class ConsultaService {
         Consulta consultaExistente = buscarPorId(idConsulta);
 
         // Verificar conflito de horário para outro médico
-        if (consultaRepository.existsByMedico_CrmAndDataHora(novoMedico.getCrm(), novaDataHora)) {
-            if (!consultaExistente.getId().equals(idConsulta)) {
-                throw new ConflitodeHorarioException("Este médico já possui outra consulta nesse horário.");
-            }
+        boolean medicoMudou = !consultaExistente.getMedico().getCpf().equals(novoMedico.getCpf());
+        boolean horarioMudou = !consultaExistente.getDataHora().equals(novaDataHora);
+
+        if ((medicoMudou || horarioMudou) &&
+                consultaRepository.existsByMedico_CpfAndDataHora(novoMedico.getCpf(), novaDataHora)) {
+
+            throw new ConflitodeHorarioException("Este médico já possui outra consulta nesse horário.");
         }
 
         // Verificar conflito de horário para outro paciente
-        if (consultaRepository.existsByPaciente_CpfAndDataHora(novoPaciente.getCpf(), novaDataHora)) {
-            if (!consultaExistente.getId().equals(idConsulta)) {
-                throw new ConflitodeHorarioException("Este paciente já possui outra consulta nesse horário.");
-            }
+        boolean pacienteMudou = !consultaExistente.getPaciente().getCpf().equals(novoPaciente.getCpf());
+
+        if ((pacienteMudou || horarioMudou) &&
+                consultaRepository.existsByPaciente_CpfAndDataHora(novoPaciente.getCpf(), novaDataHora)) {
+
+            throw new ConflitodeHorarioException("Este paciente já possui outra consulta nesse horário.");
         }
+
         consultaExistente.setMedico(novoMedico);
         consultaExistente.setPaciente(novoPaciente);
         consultaExistente.setDataHora(novaDataHora);

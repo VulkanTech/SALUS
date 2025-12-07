@@ -33,14 +33,14 @@ public class ConsultaController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    //POST - Agendamento,@valid e conflito de horario
-    @PostMapping("/{id}")
+    //POST - Agendamento
+    @PostMapping
     @Operation(summary = "Agenda nova consulta")
     public ResponseEntity<Consulta> agendar(@RequestBody @Valid AgendamentoRequestDTO dados) {
-        Medico medico = medicoRepository.findById(String.valueOf(dados.getMedicoId()))
+        Medico medico = medicoRepository.findById(dados.getMedicoCpf())
                 .orElseThrow(() -> new RuntimeException("Médico não encontrado"));
 
-        Paciente paciente = pacienteRepository.findById(String.valueOf(dados.getPacienteId()))
+        Paciente paciente = pacienteRepository.findById(dados.getPacienteCpf())
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
         Consulta novaConsulta = consultaService.addConsulta(
@@ -52,8 +52,6 @@ public class ConsultaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConsulta);
 
     }
-    //Valid- faz a validação dos campos
-    //RequestBody - data binding- recebe o json da requisição e transforma no objeto java
 
     // GET - Retorna todos os itens
     @GetMapping
@@ -72,10 +70,10 @@ public class ConsultaController {
     }
 
     // GET - Busca consultas pelo CRM do médico
-    @GetMapping("/medico/{crm}")
-    @Operation(summary = "Busca consultas pelo CRM do médico")
-    public ResponseEntity<List<Consulta>> listarPorMedico(@PathVariable String crm) {
-        List<Consulta> consultas = consultaService.listarConsultasDoMedico(crm);
+    @GetMapping("/medico/{cpf}")
+    @Operation(summary = "Busca consultas pelo CPF do médico")
+    public ResponseEntity<List<Consulta>> listarPorMedico(@PathVariable String cpf) {
+        List<Consulta> consultas = consultaService.listarConsultasDoMedico(cpf);
         return ResponseEntity.ok(consultas);
     }
 
@@ -84,10 +82,10 @@ public class ConsultaController {
     @Operation(summary = "Atualiza consulta")
     public ResponseEntity<Consulta> editar(@PathVariable Long id, @RequestBody @Valid AgendamentoRequestDTO dados) {
 
-        Medico novoMedico = medicoRepository.findById(String.valueOf(dados.getMedicoId()))
+        Medico novoMedico = medicoRepository.findById(dados.getMedicoCpf())
                 .orElseThrow(() -> new RuntimeException("Médico não encontrado"));
 
-        Paciente novoPaciente = pacienteRepository.findById(String.valueOf(dados.getPacienteId()))
+        Paciente novoPaciente = pacienteRepository.findById(dados.getPacienteCpf())
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
 
         Consulta consultaAtualizada = consultaService.atualizarConsulta(

@@ -10,6 +10,7 @@ import com.vulkantech.salus.exception.DadosInvalidosException;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
+
 @Entity
 @Table(name = "tb_medicos")
 public class Medico extends Pessoa {

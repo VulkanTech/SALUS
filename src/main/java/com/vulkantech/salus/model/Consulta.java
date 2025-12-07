@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 @Table(name = "tb_consultas")
 public class Consulta {
@@ -19,7 +20,7 @@ public class Consulta {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "medico_crm", nullable = false)
+    @JoinColumn(name = "medico_cpf", nullable = false)
     private Medico medico;
 
     @ManyToOne(optional = false)
