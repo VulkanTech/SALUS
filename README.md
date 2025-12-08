@@ -9,7 +9,7 @@ O projeto utiliza **arquitetura em camadas**, **DTOs**, **API REST documentada c
 ## ✅ Tecnologias Utilizadas
 
 ### Backend
-- Java 17
+- Java 25
 - Spring Boot
 - Spring Data JPA
 - Maven
@@ -21,7 +21,6 @@ O projeto utiliza **arquitetura em camadas**, **DTOs**, **API REST documentada c
 - React
 - Vite
 - Axios
-- Nginx (produção)
 
 ### Infraestrutura
 - Docker
@@ -33,7 +32,6 @@ O projeto utiliza **arquitetura em camadas**, **DTOs**, **API REST documentada c
 ```
 ┌──────────────────────────┐
 │ Frontend │ React + Vite
-│ (Nginx) │
 │ Porta 3000 │
 └───────┬──────────────────┘
 │ HTTP (REST)
