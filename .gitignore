@@ -1,21 +1,38 @@
-# Log files
-*.log
-
-# Build artifacts
+# Maven / Java
 target/
+*.jar
+*.war
+*.ear
+*.class
 
-# IDE files
+# Wrapper
+.mvn/timing.properties
+.mvn/wrapper/dists/
+
+# IDE
 .idea/
 *.iml
 .vscode/
-.settings/
-.classpath
-.project
+*.classpath
+*.project
+*.settings/
 
-# OS files
+# Logs
+*.log
+
+# OS
 .DS_Store
 Thumbs.db
 
-# Arquivo de segredos
-# NUNCA envie sua senha do banco!
+# Env
 .env
+
+# Docker
+pgdata/
+
+# Node (se houver frontend)
+node_modules/
+dist/
+
+# Testes
+/build/

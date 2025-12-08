@@ -27,6 +27,7 @@ public class Consulta {
     @JoinColumn(name = "paciente_cpf", nullable = false)
     private Paciente paciente;
 
+    @Column(nullable = false)
     private LocalDateTime dataHora;
 
     private boolean cancelar = false;
