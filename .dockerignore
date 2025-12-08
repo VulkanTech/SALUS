@@ -1,8 +1,32 @@
-target/
-*.iml
-.idea/
-.vscode/
-.git/
+# Git
+.git
 .gitignore
-README.md
+
+# Maven
+.mvn
+mvnw
+mvnw.cmd
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea
+.vscode
+*.iml
+
+# Logs
 *.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+
+# Node (caso tenha frontend junto)
+node_modules
+dist
+
+# Docker
+docker-compose.yml

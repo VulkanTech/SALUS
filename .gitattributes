@@ -1,2 +1,31 @@
-/mvnw text eol=lf
-*.cmd text eol=crlf
+# Normaliza fim de linha (evita problemas Windows/Linux)
+* text=auto
+
+# Shell scripts
+*.sh text eol=lf
+
+# Dockerfile
+Dockerfile text eol=lf
+*.dockerfile text eol=lf
+
+# YAML
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Frontend / Node
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+
+# Arquivos binários (não aplicar diff)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# JAR
+*.jar binary
